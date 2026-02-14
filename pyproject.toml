@@ -26,6 +26,7 @@ dependencies = [
     "numpy",
     "pandas",
     "pip",
+    "plotly>=6.5.2",
     "pytest",
     "python-dotenv",
     "ruff",
