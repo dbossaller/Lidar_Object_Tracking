@@ -2,6 +2,7 @@ import math
 import os
 from pathlib import Path
 import pickle
+import json
 
 from loguru import logger
 import pandas as pd
@@ -17,7 +18,7 @@ app = typer.Typer()
 def main(
     # ---- REPLACE DEFAULT PATHS AS APPROPRIATE ----
     input_path: Path = RAW_DATA_DIR,
-    output_path: Path = PROCESSED_DATA_DIR / "dataset.csv",
+    output_path: Path = PROCESSED_DATA_DIR,
     # ----------------------------------------------
 ):
     # ---- REPLACE THIS WITH YOUR OWN CODE ----
@@ -48,8 +49,16 @@ def rotate_45(x_val, y_val):
     return x_rot, y_rot
 
 
-def df_to_json(dataset, output_path):
-    return dataset.to_json(output_path, indent=2)
+def data_to_dict(dataset):
+    scene_dict = {}
+    for i in dataset.keys():
+        scene_dict[i] = dataset[i].to_dict(orient = 'index')
+        return scene_dict
+
+def data_to_json(dataset, output_dir, scene_number):
+    dataset = data_to_dict(dataset=dataset)
+    with open(f'{output_dir}' + f'/scene{scene_number}.json','w+') as f:
+        json.dump(dataset,f, indent=2)
 
 
 if __name__ == "__main__":
