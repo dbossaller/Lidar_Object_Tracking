@@ -17,8 +17,9 @@ app = typer.Typer()
 def main(
     input_path: Path = RAW_DATA_DIR,
     output_path: Path = PROCESSED_DATA_DIR,
+    scene_number = '004'
 ):
-    frame_dict = unpack_dataset(input_path, "004")
+    frame_dict = unpack_dataset(input_path, scene_number)
 
     for i in frame_dict.keys():
         frame_dict[i]["xr"], frame_dict[i]["yr"] = (
@@ -32,6 +33,12 @@ def main(
 
     for i in frame_dict.keys():
         coord_by_frame[i] = sample_rotated_point_cloud(frame_dict[i])
+
+    data_dict = {}
+    for i in coord_by_frame.keys():
+        data_dict[i] = data_to_dict(coord_by_frame[i])
+    
+    data_to_json(dataset = data_dict, output_dir=output_path, scene_number='004')
 
 def unpack_dataset(input_path: Path, scene_no: str):
     frame_dict = {}
@@ -73,14 +80,23 @@ def sample_rotated_point_cloud(frame, num_points = 1500):
 def data_to_dict(dataset):
     scene_dict = {}
     for i in dataset.keys():
-        scene_dict[i] = dataset[i].to_dict(orient="index")
-        return scene_dict
+        scene_dict[i] = dataset[i].to_dict()
+    return scene_dict
 
 
 def data_to_json(dataset, output_dir, scene_number):
-    dataset = data_to_dict(dataset)
     with open(f"{output_dir}" + f"/scene{scene_number}.json", "w+") as f:
-        json.dump(dataset, f, indent=2)
+        json.dump(dataset, f, indent=2, ensure_ascii=False)
+
+def read_data_json(data_directory, scene_no):
+    filename = f'{data_directory}/scene'+f'{scene_no}.json'
+    data = None
+    with open(filename, "r") as dataset:
+        data = json.load(dataset)
+    dict_of_dfs = {}
+    for idx in data.keys():
+        dict_of_dfs[int(idx)] = pd.DataFrame(data[idx])
+    return dict_of_dfs
 
 
 if __name__ == "__main__":
