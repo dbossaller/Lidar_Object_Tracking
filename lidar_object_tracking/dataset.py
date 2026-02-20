@@ -51,7 +51,7 @@ def unpack_dataset(input_path: Path, scene_no: str):
 
     return dict(sorted(frame_dict.items()))
 
-def crop_dataset(frame, xmin = -25, xmax = 25, ymin = 0, ymax = 25, zmin=1, zmax=5):
+def crop_dataset(frame, xmin = -25, xmax = 25, ymin = 0, ymax = 25, zmin=0, zmax=5):
     filt = (
     (frame["xr"] < xmin)|
     (frame["xr"] > xmax)|
