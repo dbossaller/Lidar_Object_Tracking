@@ -64,7 +64,7 @@ def pre_process(frame_dict):
     return coord_by_frame
 
 
-def crop_dataset(frame, x_span=25, ymin=0, ymax=25, zmin=0, zmax=5):
+def crop_dataset(frame, x_span=10, ymin=0, ymax=10, zmin=0, zmax=5):
     filt = (
         (frame["xr"].apply(abs) > x_span)
         | (frame["yr"] < ymin)
@@ -112,8 +112,7 @@ def read_data_json(data_directory, scene_no):
 def samples_to_dataframes(raw_json):
     df_dataset = {}
     for key in raw_json.keys():
-        df_dataset[int(key)] = pd.DataFrame(raw_json[key], columns=["xr", "yr", "z"])
-
+        df_dataset[int(key)] = pd.DataFrame(raw_json[key],columns=["xr", "yr", "z"])
     return df_dataset
 
 

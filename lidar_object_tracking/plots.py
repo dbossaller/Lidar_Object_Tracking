@@ -30,6 +30,7 @@ def plot_with_slider(dataset):
     fig = go.Figure()
 
     for i in range(80):
+
         fig.add_trace(
             go.Scatter3d(
                 visible=False,
