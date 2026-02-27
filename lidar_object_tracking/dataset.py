@@ -64,7 +64,7 @@ def pre_process(frame_dict):
     return coord_by_frame
 
 
-def crop_dataset(frame, x_span=10, ymin=0, ymax=10, zmin=0, zmax=5):
+def crop_dataset(frame, x_span=10, ymin=4, ymax=10, zmin=0, zmax=5):
     filt = (
         (frame["xr"].apply(abs) > x_span)
         | (frame["yr"] < ymin)
@@ -83,8 +83,12 @@ def rotate_45(x_val, y_val):
     return x_rot, y_rot
 
 
-def sample_rotated_point_cloud(frame, num_points=1500):
-    sample_idxs = sample(list(frame.index), num_points)
+def sample_rotated_point_cloud(frame, num_points=1250):
+    try:
+        sample_idxs = sample(list(frame.index), num_points)
+    except ValueError:
+        return frame[["xr", "yr", "z"]]
+    sample_idxs = sorted(sample_idxs)    
     return frame[["xr", "yr", "z"]].loc[sample_idxs]
 
 

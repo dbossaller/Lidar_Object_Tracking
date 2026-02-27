@@ -43,10 +43,11 @@ def plot_with_slider(dataset):
         )
         fig.update_layout(height=500, width=750)
         fig.update_scenes(
-            xaxis=dict(range=[-25, 25]),
-            yaxis=dict(range=[0, 25]),
-            zaxis=dict(range=[0, 5]),
+            xaxis_range=[-10, 10],
+            yaxis_range=[0, 10],
+            zaxis_range=[0, 5],
             aspectmode="data",
+            overwrite=True
         )
 
     fig.data[0].visible = True
