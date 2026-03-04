@@ -5,6 +5,7 @@ from pathlib import Path
 import pickle
 from random import sample
 
+import numpy as np
 import pandas as pd
 import typer
 
@@ -124,6 +125,19 @@ def load_json_data(data_directory, scene_num):
     json_data = read_data_json(data_directory, scene_num)
     return samples_to_dataframes(json_data)
 
+def json_to_numpy(directory,scene_num):
+    data_dict = load_json_data(directory,scene_num)
+    total_points = len(data_dict)*len(data_dict[0])
+
+    i = 0
+    dataset = np.zeros((total_points,4))
+    for key in range(80):
+        numpy_data = data_dict[key].to_numpy()
+        for datum in numpy_data:
+            frame_datum = np.insert(datum, 0, key*0.1)
+            dataset[i] = frame_datum
+            i += 1
+    return dataset
 
 if __name__ == "__main__":
     app()
