@@ -38,7 +38,7 @@ def dbscan_clustering_labels(dataset, epsilon = 1, min_cluster_size=50):
 
 def pull_data_with_labels(dataset,labels, label):
     if label not in labels:
-        raise ValueError(f'{label} is not a valid label for the dataset.')
+        raise ValueError(f'{label} is not a valid label for the dataset. Your label should be an integer between 0 and {max(labels)}')
     
     filt = (labels == label)
 

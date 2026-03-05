@@ -929,6 +929,7 @@ dependencies = [
     { name = "pandas" },
     { name = "pip" },
     { name = "plotly" },
+    { name = "pykalman" },
     { name = "pytest" },
     { name = "python-dotenv" },
     { name = "ruff" },
@@ -951,6 +952,7 @@ requires-dist = [
     { name = "pandas" },
     { name = "pip" },
     { name = "plotly", specifier = ">=6.5.2" },
+    { name = "pykalman", specifier = ">=0.11.2" },
     { name = "pytest" },
     { name = "python-dotenv" },
     { name = "ruff" },
@@ -1509,6 +1511,21 @@ wheels = [
 ]
 
 [[package]]
+name = "pykalman"
+version = "0.11.2"
+source = { registry = "https://pypi.org/simple" }
+dependencies = [
+    { name = "numpy" },
+    { name = "packaging" },
+    { name = "scikit-base" },
+    { name = "scipy" },
+]
+sdist = { url = "https://files.pythonhosted.org/packages/ae/5e/2c4a3dc86f5d9bc80ef48a79197b57c6b03aefa021aa685da1a8b1478492/pykalman-0.11.2.tar.gz", hash = "sha256:70c22bb074376f7aa1304c4c2f4c61feb22bafd4ab992d340da9340b5a028674", size = 244565, upload-time = "2026-01-31T22:11:03.61Z" }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/6e/4d/bd6608cb7b1d2832e4270bb36c7394efa6ea1c8243a3b9ee53726a6cffe0/pykalman-0.11.2-py2.py3-none-any.whl", hash = "sha256:00dcc0c88b93a8ab6100295501e7f440350b872d558b41d0deff2fcaf827a553", size = 252132, upload-time = "2026-01-31T22:11:01.317Z" },
+]
+
+[[package]]
 name = "pyparsing"
 version = "3.3.2"
 source = { registry = "https://pypi.org/simple" }
@@ -1745,6 +1762,15 @@ wheels = [
     { url = "https://files.pythonhosted.org/packages/6f/b0/69adf22f4e24f3677208adb715c578266842e6e6a3cc77483f48dd999ede/ruff-0.15.0-py3-none-win32.whl", hash = "sha256:238a717ef803e501b6d51e0bdd0d2c6e8513fe9eec14002445134d3907cd46c3", size = 10465945, upload-time = "2026-02-03T17:53:12.591Z" },
     { url = "https://files.pythonhosted.org/packages/51/ad/f813b6e2c97e9b4598be25e94a9147b9af7e60523b0cb5d94d307c15229d/ruff-0.15.0-py3-none-win_amd64.whl", hash = "sha256:dd5e4d3301dc01de614da3cdffc33d4b1b96fb89e45721f1598e5532ccf78b18", size = 11564657, upload-time = "2026-02-03T17:52:51.893Z" },
     { url = "https://files.pythonhosted.org/packages/f6/b0/2d823f6e77ebe560f4e397d078487e8d52c1516b331e3521bc75db4272ca/ruff-0.15.0-py3-none-win_arm64.whl", hash = "sha256:c480d632cc0ca3f0727acac8b7d053542d9e114a462a145d0b00e7cd658c515a", size = 10865753, upload-time = "2026-02-03T17:53:03.014Z" },
+]
+
+[[package]]
+name = "scikit-base"
+version = "0.13.1"
+source = { registry = "https://pypi.org/simple" }
+sdist = { url = "https://files.pythonhosted.org/packages/56/a8/610f99f01f326178b8a7347db2ede654b42548e9697b516480cc081e344d/scikit_base-0.13.1.tar.gz", hash = "sha256:169e5427233f7237b38c7d858bf07b8a86bbf59feccf0708e26dad4ac312c593", size = 134482, upload-time = "2026-01-25T11:31:38.814Z" }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/e3/55/c20d8319aab037e11f1d6403b6102d1041694abe24a3aa4a1e27f2cdb9f2/scikit_base-0.13.1-py3-none-any.whl", hash = "sha256:1aca86759435fd2d32d83a526ce11095119c0745e4e5dd91f2e5820023ca8e39", size = 159779, upload-time = "2026-01-25T11:31:36.759Z" },
 ]
 
 [[package]]

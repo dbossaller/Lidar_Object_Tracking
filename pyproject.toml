@@ -27,6 +27,7 @@ dependencies = [
     "pandas",
     "pip",
     "plotly>=6.5.2",
+    "pykalman>=0.11.2",
     "pytest",
     "python-dotenv",
     "ruff",
