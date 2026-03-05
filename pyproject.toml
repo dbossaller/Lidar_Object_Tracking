@@ -16,6 +16,7 @@ classifiers = [
     
 ]
 dependencies = [
+    "dotenv>=0.9.9",
     "ipympl>=0.10.0",
     "ipython",
     "jupyterlab",
