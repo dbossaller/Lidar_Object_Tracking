@@ -2,7 +2,7 @@
 # GLOBALS                                                                       #
 #################################################################################
 
-PROJECT_NAME = lidar_object_tracking
+PROJECT_NAME = scripts
 PYTHON_VERSION = 3.12
 PYTHON_INTERPRETER = python
 
@@ -65,7 +65,7 @@ create_environment:
 ## Make dataset
 .PHONY: data
 data: requirements
-	$(PYTHON_INTERPRETER) lidar_object_tracking/dataset.py
+	$(PYTHON_INTERPRETER) scripts/dataset.py
 
 
 #################################################################################
