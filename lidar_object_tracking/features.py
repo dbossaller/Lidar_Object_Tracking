@@ -2,10 +2,10 @@ from pathlib import Path
 
 from loguru import logger
 import numpy as np
+from pykalman import KalmanFilter
 from sklearn.cluster import DBSCAN
 from tqdm import tqdm
 import typer
-from pykalman import KalmanFilter
 
 from lidar_object_tracking.config import PROCESSED_DATA_DIR
 
@@ -27,7 +27,7 @@ def main(
     logger.success("Features generation complete.")
     # -----------------------------------------
 
-def dbscan_clustering_labels(dataset, epsilon = 1, min_cluster_size=50):
+def dbscan_clustering_labels(dataset, epsilon = .75, min_cluster_size=50):
     db = DBSCAN(eps=epsilon, min_samples=min_cluster_size)
 
     clusters = db.fit(dataset)
@@ -116,11 +116,15 @@ def identify_moving_clusters(dataset):
     state_estimates = {}
     cluster_list = []
     for i in xy_centers.keys():
-        state_estimates[i] = run_kalman(xy_centers[i])
-        x_vel_est_i = state_estimates[i][:,2]
-        y_vel_est_i = state_estimates[i][:,3]
+        try:
+            state_estimates[i] = run_kalman(xy_centers[i])
+            x_vel_est_i = state_estimates[i][:,2]
+            y_vel_est_i = state_estimates[i][:,3]
 
-        speed = [(x_vel_est_i[idx]**2+  y_vel_est_i[idx]**2)**0.5 for idx in range(len(x_vel_est_i))]
+            speed = [(x_vel_est_i[idx]**2+  y_vel_est_i[idx]**2)**0.5 for idx in range(len(x_vel_est_i))]
+        except ValueError:
+            print(f'Error with cluster {i}, continuing to the next cluster.')
+            continue
 
         avg_speed = np.mean(speed)
     
@@ -128,12 +132,13 @@ def identify_moving_clusters(dataset):
             cluster_list.append(i)
             x_pos_est_i = state_estimates[i][:,0]
             y_pos_est_i = state_estimates[i][:,0]
-            print(f'Cluster {i} is moving at a rate of {avg_speed} m/s.')
+            print(f'Cluster {i} Average Speed: {round(avg_speed,5)} m/s.')
             moving_estimates[i] = [x_pos_est_i, y_pos_est_i, x_vel_est_i, y_vel_est_i]
             moving_clusters[i] = cluster_points[i]
+        elif avg_speed >=0:
+            print(f'Cluster {i} Average Speed: {round(avg_speed,5)} m/s. It is likely not a moving cluster')
         else:
-            print(f'Cluster {i} has an average speed of {avg_speed} m/s. It is likely not a moving cluster')
-        
+            pass
     return moving_clusters, moving_estimates
 
 if __name__ == "__main__":
