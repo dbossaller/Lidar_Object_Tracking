@@ -17,20 +17,14 @@ classifiers = [
 ]
 dependencies = [
     "dotenv>=0.9.9",
-    "ipympl>=0.10.0",
-    "ipython",
-    "jupyterlab",
+    "ipykernel>=7.2.0",
     "loguru",
-    "mkdocs",
-    "notebook",
+    "nbformat>=5.10.4",
     "numpy",
     "pandas",
-    "pip",
     "plotly>=6.5.2",
     "pykalman>=0.11.2",
-    "python-dotenv",
-    "ruff",
-    "scikit-learn",
+    "scikit-learn>=1.8.0",
     "tqdm",
     "typer>=0.24.1",
 ]
